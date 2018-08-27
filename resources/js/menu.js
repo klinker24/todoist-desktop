@@ -15,7 +15,7 @@
  */
 
 (function() {
-  const { BrowserView, Menu, app } = require('electron')
+  const { Menu, app } = require('electron')
 
   const path = require('path')
   const browserviewPreparer = require('./browserview-configurator.js')
@@ -109,30 +109,6 @@
     // if they turn off auto hide, we will show this menu bar immediately.
     windowProvider.getWindow().setMenuBarVisibility(false)
     windowProvider.getWindow().setAutoHideMenuBar(true)
-  }
-
-  function showWindow(windowProvider) {
-    if (windowProvider.getWindow() != null) {
-      windowProvider.getWindow().show()
-      if (process.platform === 'darwin') {
-        app.dock.show()
-      }
-    } else {
-      windowProvider.createMainWindow()
-    }
-  }
-
-  function showPoupWindow(windowProvider) {
-    if (windowProvider.getReplyWindow() !== null) {
-      windowProvider.getReplyWindow().webContents.executeJavaScript("document.getElementById('messenger').loadURL('https://pulsesms.app')")
-      windowProvider.getReplyWindow().show()
-      windowProvider.getReplyWindow().focus()
-    } else {
-      windowProvider.createReplyWindow()
-      setTimeout(() => {
-        windowProvider.getReplyWindow().webContents.executeJavaScript("document.getElementById('messenger').loadURL('https://pulsesms.app')")
-      }, 500)
-    }
   }
 
   module.exports.buildMenu = buildMenu

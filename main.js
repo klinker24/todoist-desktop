@@ -21,14 +21,18 @@ let menu = null
 
 let mainWindow = null
 
-app.requestSingleInstanceLock()
-app.on('second-instance', () => {
+var shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
   if (windowProvider == null) {
     initialize()
   }
 
   windowProvider.getWindow().show()
 })
+
+if (shouldQuit) {
+  app.quit()
+  return
+}
 
 app.setAppUserModelId("xyz.klinker.todoist")
 app.on('ready', createWindow)
@@ -47,7 +51,7 @@ app.on('before-quit', () => {
 function createWindow() {
   initialize()
 
-  if (windowProvider.getWindow() === null) {
+  if (mainWindow == null) {
     mainWindow = windowProvider.createMainWindow()
     menu.buildMenu(windowProvider)
   } else {
@@ -55,12 +59,8 @@ function createWindow() {
       app.dock.show()
     }
 
-    windowProvider.getWindow().show()
+    mainWindow.show()
     menu.buildMenu(windowProvider)
-  }
-
-  if (process.platform === 'win32') {
-    app.setLoginItemSettings({ openAtLogin: true })
   }
 }
 

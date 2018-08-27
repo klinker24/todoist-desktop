@@ -14,9 +14,6 @@
  *  limitations under the License.
  */
 
-// Add a command line arg to see if the user wants to hide the gui on first launch
-let noGui = process.argv.indexOf("--no-gui") > -1;
-
 (function() {
   const { BrowserWindow, BrowserView, app } = require('electron')
 
@@ -29,30 +26,24 @@ let noGui = process.argv.indexOf("--no-gui") > -1;
   let browserView = null
 
   var createMainWindow = () => {
-    var mainWindowState, mainWindow, bounds
+    let mainWindowState, mainWindow, bounds
 
     try {
       mainWindowState = windowStateKeeper( { defaultWidth: 1000, defaultHeight: 750 } )
       bounds = {
         title: "Todoist", icon: path.join(__dirname, '../../build/icon.png'),
-        show: !noGui, x: mainWindowState.x, y: mainWindowState.y,
+        x: mainWindowState.x, y: mainWindowState.y,
         width: mainWindowState.width, height: mainWindowState.height,
       }
     } catch (err) {
       bounds = {
         title: "Todoist", icon: path.join(__dirname, '../../build/icon.png'),
-        show: !noGui, x: 0, y: 0,
+        x: 0, y: 0,
         width: 1000, height: 750,
       }
     }
 
     mainWindow = new BrowserWindow(bounds)
-
-    // always re-enable showing the GUI after first launch
-    if (noGui) {
-      noGui = false;
-    }
-
     browserView = new BrowserView( { webPreferences: { nodeIntegration: false } } )
 
     mainWindow.setBrowserView(browserView)
@@ -61,14 +52,10 @@ let noGui = process.argv.indexOf("--no-gui") > -1;
     mainWindow.on('close', (event) => {
       event.preventDefault()
       getWindow().hide()
-
-      if (process.platform === 'darwin') {
-        app.dock.hide()
-      }
     })
 
     mainWindow.on('closed', (event) => {
-      setWindow(null)
+      event.preventDefault()
     })
 
     setWindow(mainWindow)
@@ -89,12 +76,7 @@ let noGui = process.argv.indexOf("--no-gui") > -1;
     return browserView
   }
 
-  var setReplyWindow = (w) => {
-    replyWindow = w
-  }
-
   module.exports.createMainWindow = createMainWindow
   module.exports.getWindow = getWindow
-  module.exports.setWindow = setWindow
   module.exports.getBrowserView = getBrowserView
 }())

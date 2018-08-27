@@ -21,31 +21,13 @@
     browser.setAutoResize( { width: true, height: true } )
     browser.webContents.loadURL('https://todoist.com/app')
 
-    browser.webContents.on('dom-ready', (event) => {
-
-    })
-
-    browser.webContents.on('did-fail-load', (event) => {
-      setTimeout(() => {
-        browser.webContents.loadURL('https://todoist.com/app')
-      }, 2000);
-    })
-
-    browser.webContents.on('new-window', (event, url) => {
-      try {
-        require('electron').shell.openExternal(url)
-        event.preventDefault()
-      } catch (error) {
-        console.log("Ignoring " + url + " due to " + error.message)
-      }
-    })
   }
 
   function getTitleBarSize(window) {
     if (process.platform === "darwin") {
       return 20
     } else if (process.platform === "win32") {
-      return preferences.autoHideMenuBar() ? 40 : 60
+      return 40
     } else {
       return 0
     }
