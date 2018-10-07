@@ -26,42 +26,31 @@
   let browserView = null
 
   var createMainWindow = () => {
-    let mainWindowState, mainWindow, bounds
-
-    try {
-      mainWindowState = windowStateKeeper( { defaultWidth: 1000, defaultHeight: 750 } )
-      bounds = {
-        title: "Todoist", icon: path.join(__dirname, '../../build/icon.png'),
-        x: mainWindowState.x, y: mainWindowState.y,
-        width: mainWindowState.width, height: mainWindowState.height,
-      }
-    } catch (err) {
-      bounds = {
-        title: "Todoist", icon: path.join(__dirname, '../../build/icon.png'),
-        x: 0, y: 0,
-        width: 1000, height: 750,
-      }
-    }
-
-    mainWindow = new BrowserWindow(bounds)
-    browserView = new BrowserView( { webPreferences: { nodeIntegration: false } } )
-
-    mainWindow.setBrowserView(browserView)
-    configurator.prepare(mainWindow, browserView)
-
-    mainWindow.on('close', (event) => {
-      event.preventDefault()
-      getWindow().hide()
+    let windowState = windowStateKeeper( { defaultWidth: 1000, defaultHeight: 750 } )
+    let browser = new BrowserView( { webPreferences: { nodeIntegration: false } } )
+    let window = new BrowserWindow({
+      title: "Todoist", icon: path.join(__dirname, '../../build/icon.png'),
+      x: windowState.x, y: windowState.y, width: windowState.width, height: windowState.height,
     })
 
-    mainWindow.on('closed', (event) => {
+    window.setBrowserView(browser)
+    configurator.prepare(window, browser)
+
+    window.on('close', (event) => {
+      event.preventDefault()
+      window.hide()
+    })
+
+    window.on('closed', (event) => {
       event.preventDefault()
     })
 
-    setWindow(mainWindow)
-    mainWindowState.manage(mainWindow)
+    setWindow(window)
+    setBrowserView(browser)
 
-    return mainWindow
+    mainWindowState.manage(window)
+
+    return window
   }
 
   var setWindow = (w) => {
@@ -70,6 +59,10 @@
 
   var getWindow = () => {
     return mainWindow
+  }
+
+  var setBrowserView = (b) => {
+    browserView = b
   }
 
   var getBrowserView = () => {

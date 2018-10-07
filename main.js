@@ -21,12 +21,14 @@ let menu = null
 
 let mainWindow = null
 
-app.requestSingleInstanceLock()
-app.on('second-instance', () => {
-  if (windowProvider == null) {
-    initialize()
-  }
+const gotLock = app.requestSingleInstanceLock()
 
+if (!gotLock) {
+  app.exit(0)
+  return;
+}
+
+app.on('second-instance', () => {
   windowProvider.getWindow().show()
 })
 
