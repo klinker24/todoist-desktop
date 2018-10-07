@@ -21,18 +21,14 @@ let menu = null
 
 let mainWindow = null
 
-var shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+app.requestSingleInstanceLock()
+app.on('second-instance', () => {
   if (windowProvider == null) {
     initialize()
   }
 
   windowProvider.getWindow().show()
 })
-
-if (shouldQuit) {
-  app.quit()
-  return
-}
 
 app.setAppUserModelId("xyz.klinker.todoist")
 app.on('ready', createWindow)
