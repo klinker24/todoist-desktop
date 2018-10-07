@@ -14,12 +14,10 @@
  *  limitations under the License.
  */
 
-const { app, Menu } = require('electron')
+const { app } = require('electron')
 
 let windowProvider = null
 let menu = null
-
-let mainWindow = null
 
 const gotLock = app.requestSingleInstanceLock()
 
@@ -49,15 +47,15 @@ app.on('before-quit', () => {
 function createWindow() {
   initialize()
 
-  if (mainWindow == null) {
-    mainWindow = windowProvider.createMainWindow()
+  if (windowProvider.getWindow() == null) {
+    windowProvider.createMainWindow()
     menu.buildMenu(windowProvider)
   } else {
     if (process.platform === 'darwin') {
       app.dock.show()
     }
 
-    mainWindow.show()
+    windowProvider.getWindow().show()
     menu.buildMenu(windowProvider)
   }
 }

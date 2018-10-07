@@ -28,10 +28,10 @@
   var createMainWindow = () => {
     let windowState = windowStateKeeper( { defaultWidth: 1000, defaultHeight: 750 } )
     let browser = new BrowserView( { webPreferences: { nodeIntegration: false } } )
-    let window = new BrowserWindow({
+    let window = new BrowserWindow( {
       title: "Todoist", icon: path.join(__dirname, '../../build/icon.png'),
       x: windowState.x, y: windowState.y, width: windowState.width, height: windowState.height,
-    })
+    } )
 
     window.setBrowserView(browser)
     configurator.prepare(window, browser)
