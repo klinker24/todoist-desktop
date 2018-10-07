@@ -48,7 +48,7 @@
     setWindow(window)
     setBrowserView(browser)
 
-    mainWindowState.manage(window)
+    windowState.manage(window)
 
     return window
   }
