@@ -75,11 +75,11 @@
         label: name,
         submenu: [
           { type: 'separator' },
-          { label: 'Hide Pulse', role: 'hide' },
+          { label: 'Hide Todoist', role: 'hide' },
           { role: 'hideothers' },
           { role: 'unhide' },
           { type: 'separator' },
-          { label: 'Quit Pulse', role: 'quit' }
+          { label: 'Quit Todoist', role: 'quit' }
         ]
       })
 
