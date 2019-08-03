@@ -7,7 +7,13 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder build",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "build-mac": "electron-builder build --mac",
+    "build-windows": "electron-builder build --windows nsis --x64 --ia32",
+    "build-linux": "electron-builder build --linux rpm deb AppImage",
+    "publish-mac": "electron-builder build --mac --publish always",
+    "publish-linux": "electron-builder build --linux rpm deb AppImage --publish always",
+    "publish-windows": "electron-builder build --windows nsis --x64 --ia32 --publish always"
   },
   "repository": "https://github.com/klinker24/todoist-desktop",
   "keywords": [
@@ -27,7 +33,15 @@
     "artifactName": "todoist-${version}-${arch}.${ext}",
     "mac": {
       "category": "public.app-category.utilities"
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "klinker24",
+        "repo": "todoist-desktop",
+        "releaseType": "draft"
+      }
+    ]
   },
   "devDependencies": {
     "electron": "6.0.0",

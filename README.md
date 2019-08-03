@@ -12,7 +12,7 @@ This desktop app is built on top of Electron's `BrowserView`, rather than Chromi
 
 ```
 $ npm install -g electron
-$ yarn install
+$ yarn
 ```
 
 2. Run the app:
@@ -28,10 +28,10 @@ The app will only run if you have shut down any other instances. If you use `npm
 To package the apps for each platform:
 
 ```
-$ yarn install
-$ sudo ./node_modules/.bin/electron-builder build --mac dmg
-$ sudo ./node_modules/.bin/electron-builder build --linux deb
-$ sudo ./node_modules/.bin/electron-builder build --windows nsis
+$ yarn
+$ yarn run build-mac
+$ yarn run build-linux
+$ yarn run build-windows
 ```
 
 ## License
