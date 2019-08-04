@@ -112,7 +112,7 @@
           win.setAutoHideMenuBar(menuVisible);
           win.setMenuBarVisibility(!menuVisible);
 
-          this.browserviewPreparer.setBounds(win, windowProvider.getBrowserView());
+          browserviewPreparer.setBounds(win, windowProvider.getBrowserView());
         },
         label: "Toggle Menu Bar Visibility",
       });
@@ -125,7 +125,7 @@
     window.setAutoHideMenuBar(true);
     window.setMenuBarVisibility(false);
 
-    this.browserviewPreparer.setBounds(window, windowProvider.getBrowserView());
+    browserviewPreparer.setBounds(window, windowProvider.getBrowserView());
   }
 
   module.exports.buildMenu = buildMenu

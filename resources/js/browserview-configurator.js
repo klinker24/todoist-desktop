@@ -20,7 +20,6 @@
     setBounds(window, browser)
     browser.setAutoResize( { width: true, height: true } )
     browser.webContents.loadURL('https://todoist.com/app')
-
   }
 
   var setBounds = (window, browser) => {
