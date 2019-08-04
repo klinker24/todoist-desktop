@@ -38,7 +38,7 @@
     } else if (process.platform === "win32") {
       return window.isMenuBarVisible() ? 60 : 40;
     } else {
-      return window.isMenuBarVisible() ? 22 : 0;
+      return window.isMenuBarVisible() ? 25 : 0;
     }
   }
 
