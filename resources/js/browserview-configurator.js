@@ -17,21 +17,31 @@
 (function() {
 
   var prepare = (window, browser) => {
-    browser.setBounds( { x: 0, y: 0, width: window.getBounds().width, height: window.getBounds().height - getTitleBarSize(window) } )
+    this.setBounds(window, browser)
     browser.setAutoResize( { width: true, height: true } )
     browser.webContents.loadURL('https://todoist.com/app')
 
   }
 
+  var setBounds = (window, browser) => {
+    browser.setBounds({ 
+      x: 0, 
+      y: 0, 
+      width: window.getBounds().width, 
+      height: window.getBounds().height - getTitleBarSize(window)
+    });
+  }
+
   function getTitleBarSize(window) {
     if (process.platform === "darwin") {
-      return 20
+      return 20;
     } else if (process.platform === "win32") {
-      return 40
+      return window.isMenuBarVisible() ? 60 : 40;
     } else {
-      return 0
+      return window.isMenuBarVisible() ? 22 : 0;
     }
   }
 
   module.exports.prepare = prepare
+  module.exports.setBounds = setBounds
 }())
