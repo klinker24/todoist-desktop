@@ -17,7 +17,7 @@
 (function() {
 
   var prepare = (window, browser) => {
-    this.setBounds(window, browser)
+    setBounds(window, browser)
     browser.setAutoResize( { width: true, height: true } )
     browser.webContents.loadURL('https://todoist.com/app')
 
