@@ -34,6 +34,7 @@
     "artifactName": "todoist-${version}-${arch}.${ext}",
     "afterSign": "build/notarize.js",
     "mac": {
+      "icon": "build/icon.png",
       "category": "public.app-category.utilities",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -42,6 +43,13 @@
     },
     "dmg": {
       "sign": false
+    },
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "icon": "build",
+      "category": "Utility"
     },
     "publish": [
       {
