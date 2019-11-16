@@ -1,6 +1,6 @@
 {
   "name": "todoist",
-  "version": "v1.7.0",
+  "version": "v1.7.1",
   "description": "A web wrapper for Todoist",
   "main": "main.js",
   "scripts": {
@@ -63,8 +63,8 @@
   "devDependencies": {
     "@types/node": "^12.6.8",
     "dotenv": "^8.1.0",
-    "electron": "7.0.0",
-    "electron-builder": "22.0.0",
+    "electron": "7.1.1",
+    "electron-builder": "22.1.0",
     "electron-notarize": "^0.1.1"
   },
   "dependencies": {
